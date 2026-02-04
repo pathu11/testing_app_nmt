@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Sinhala Fingerspelling</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="flex items-center space-x-2">
+                        <i class="fas fa-hands text-indigo-600 text-2xl"></i>
+                        <h1 class="text-xl font-bold text-gray-800">සිංහල ඇඟිලි අකුරු</h1>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-gray-600 hover:text-indigo-600 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="/demo" class="text-gray-600 hover:text-indigo-600 transition-colors">
+                        <i class="fas fa-play-circle mr-2"></i>Demo
+                    </a>
+                    <a href="/about" class="text-indigo-600 font-semibold">
+                        <i class="fas fa-info-circle mr-2"></i>About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-12">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-gray-800 mb-6">
+                About Sinhala Fingerspelling
+            </h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                A modern web application designed to make learning and teaching Sinhala sign language 
+                more accessible and interactive through technology.
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-language text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Sinhala Language Support</h3>
+                <p class="text-gray-600">
+                    Complete support for Sinhala script with accurate processing of complex vowel 
+                    combinations, consonant clusters, and special characters.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-video text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Video Visualization</h3>
+                <p class="text-gray-600">
+                    High-quality video demonstrations of each fingerspelling sign, automatically 
+                    sequenced to spell out complete words and phrases.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-brain text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Smart Conversion</h3>
+                <p class="text-gray-600">
+                    Advanced algorithm that handles Yakaranshaya, Rakaranshaya, and other complex 
+                    Sinhala linguistic rules for accurate fingerspelling conversion.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-universal-access text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Accessibility Focused</h3>
+                <p class="text-gray-600">
+                    Designed with accessibility in mind, making sign language learning more 
+                    inclusive for students and educators with various needs.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-mobile-alt text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Responsive Design</h3>
+                <p class="text-gray-600">
+                    Fully responsive interface that works seamlessly across desktop, tablet, 
+                    and mobile devices for learning on the go.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-full flex items-center justify-center mb-6">
+                    <i class="fas fa-graduation-cap text-white text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Educational Tool</h3>
+                <p class="text-gray-600">
+                    Perfect for teachers, students, and anyone interested in learning or 
+                    teaching Sinhala sign language in an interactive way.
+                </p>
+            </div>
+        </div>
+
+        <!-- Technical Details -->
+        <div class="bg-white rounded-2xl p-8 shadow-xl mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Technical Implementation</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-cogs text-indigo-600 mr-2"></i>
+                        Backend Technology
+                    </h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Python Flask web framework</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Modular object-oriented design</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Clean separation of concerns</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>RESTful API architecture</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Comprehensive error handling</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-palette text-indigo-600 mr-2"></i>
+                        Frontend Features
+                    </h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Modern vanilla JavaScript</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Tailwind CSS for styling</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Responsive design principles</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Interactive video player</li>
+                        <li><i class="fas fa-chevron-right text-indigo-600 mr-2"></i>Real-time feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Algorithm Explanation -->
+        <div class="bg-white rounded-2xl p-8 shadow-xl mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Fingerspelling Algorithm</h2>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-indigo-600 pl-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Priority 1: Special Combinations</h4>
+                    <p class="text-gray-600">
+                        Handles Yakaranshaya (්‍ය) and Rakaranshaya (්‍ර) patterns with optional vowel modifiers.
+                        These complex combinations are processed first to ensure accuracy.
+                    </p>
+                </div>
+
+                <div class="border-l-4 border-green-600 pl-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Priority 2: Consonant-Vowel Pairs</h4>
+                    <p class="text-gray-600">
+                        Identifies consonants followed by vowel modifiers and converts them to 
+                        separate hal consonant and independent vowel signs.
+                    </p>
+                </div>
+
+                <div class="border-l-4 border-yellow-600 pl-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Priority 3: Hal Combinations</h4>
+                    <p class="text-gray-600">
+                        Processes consonants with hal marks and handles consonant clusters with 
+                        appropriate inherent vowel insertion.
+                    </p>
+                </div>
+
+                <div class="border-l-4 border-purple-600 pl-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-2">Priority 4: Individual Characters</h4>
+                    <p class="text-gray-600">
+                        Handles standalone vowels, consonants, and special characters, ensuring 
+                        every input character is properly converted.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+            <h2 class="text-3xl font-bold mb-4">Get Involved</h2>
+            <p class="text-lg mb-6">
+                This is an open-source educational project. We welcome contributions, 
+                feedback, and suggestions to make it even better!
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#" class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-lg transition-colors">
+                    <i class="fab fa-github mr-2"></i>Source Code
+                </a>
+                <a href="#" class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-lg transition-colors">
+                    <i class="fas fa-bug mr-2"></i>Report Issues
+                </a>
+                <a href="#" class="bg-white/20 hover:bg-white/30 px-6 py-3 rounded-lg transition-colors">
+                    <i class="fas fa-lightbulb mr-2"></i>Suggest Features
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 bg-white/80 backdrop-blur-sm border-t border-gray-200">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Built with ❤️ for Sinhala Sign Language Learning
+                </p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

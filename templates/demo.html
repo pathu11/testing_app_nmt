@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Sinhala Fingerspelling</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="flex items-center space-x-2">
+                        <i class="fas fa-hands text-indigo-600 text-2xl"></i>
+                        <h1 class="text-xl font-bold text-gray-800">සිංහල ඇඟිලි අකුරු</h1>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-gray-600 hover:text-indigo-600 transition-colors">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="/demo" class="text-indigo-600 font-semibold">
+                        <i class="fas fa-play-circle mr-2"></i>Demo
+                    </a>
+                    <a href="/about" class="text-gray-600 hover:text-indigo-600 transition-colors">
+                        <i class="fas fa-info-circle mr-2"></i>About
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                Interactive Demo
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Try out the fingerspelling converter with these pre-selected examples. 
+                Click on any example to see it in action!
+            </p>
+        </div>
+
+        <!-- Demo Categories -->
+        <div class="max-w-6xl mx-auto space-y-8">
+            
+            <!-- Names Section -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-user text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Personal Names</h2>
+                        <p class="text-gray-600">Common Sinhala first names and their fingerspelling</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="nameExamples">
+                    <!-- Names will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Villages Section -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-600 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Places & Villages</h2>
+                        <p class="text-gray-600">Cities, towns, and villages across Sri Lanka</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4" id="villageExamples">
+                    <!-- Villages will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Complex Examples -->
+            <div class="bg-white rounded-2xl shadow-xl p-8">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-brain text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Complex Examples</h2>
+                        <p class="text-gray-600">Words with special combinations and linguistic rules</p>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Yakaranshaya (්‍ය)</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="demo-word sinhala-text" data-word="භාග්‍යා">භාග්‍යා</button>
+                            <button class="demo-word sinhala-text" data-word="ග්‍යාන">ග්‍යාන</button>
+                            <button class="demo-word sinhala-text" data-word="ධ්‍යාන">ධ්‍යාන</button>
+                        </div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Rakaranshaya (්‍ර)</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="demo-word sinhala-text" data-word="ප්‍රමිලා">ප්‍රමිලා</button>
+                            <button class="demo-word sinhala-text" data-word="ක්‍රීඩා">ක්‍රීඩා</button>
+                            <button class="demo-word sinhala-text" data-word="ශ්‍රී">ශ්‍රී</button>
+                        </div>
+                    </div>
+                    
+                    <div class="border rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">Complex Combinations</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="demo-word sinhala-text" data-word="ඔල්බන්">ඔල්බන්</button>
+                            <button class="demo-word sinhala-text" data-word="කල්ප">කල්ප</button>
+                            <button class="demo-word sinhala-text" data-word="ඉන්ද්‍රිය">ඉන්ද්‍රිය</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo Instructions -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-4">How to Use the Demo</h2>
+                    <div class="grid md:grid-cols-3 gap-6 mt-8">
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">1</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Click a Word</h3>
+                            <p class="text-white/80">Select any example word from the categories above</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">2</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Watch Conversion</h3>
+                            <p class="text-white/80">See how the word is broken down into fingerspelling signs</p>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-2xl font-bold">3</span>
+                            </div>
+                            <h3 class="text-lg font-semibold mb-2">Play Videos</h3>
+                            <p class="text-white/80">Use the video player to see the complete fingerspelling sequence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Demo Results Modal -->
+    <div id="demoModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-4xl w-full max-h-96 overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800">Demo Result</h3>
+                        <p class="text-gray-600">Word: <span id="demoWord" class="sinhala-text font-semibold">-</span></p>
+                    </div>
+                    <button id="closeDemoModal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div id="demoContent" class="space-y-6">
+                    <!-- Demo results will be loaded here -->
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <a href="/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors inline-flex items-center">
+                        <i class="fas fa-arrow-right mr-2"></i>
+                        Try Your Own Words
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 bg-white/80 backdrop-blur-sm border-t border-gray-200">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Built with ❤️ for Sinhala Sign Language Learning
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        class DemoApp {
+            constructor() {
+                this.initializeEventListeners();
+                this.loadDemoExamples();
+            }
+
+            initializeEventListeners() {
+                document.getElementById('closeDemoModal').addEventListener('click', () => this.closeDemoModal());
+                
+                // Click outside modal to close
+                document.getElementById('demoModal').addEventListener('click', (e) => {
+                    if (e.target.id === 'demoModal') {
+                        this.closeDemoModal();
+                    }
+                });
+            }
+
+            async loadDemoExamples() {
+                try {
+                    const response = await fetch('/api/samples');
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.displayDemoWords(data.samples);
+                    }
+                } catch (error) {
+                    console.error('Error loading demo examples:', error);
+                }
+            }
+
+            displayDemoWords(samples) {
+                // Display names
+                const namesContainer = document.getElementById('nameExamples');
+                if (samples.names) {
+                    samples.names.forEach(name => {
+                        const button = this.createDemoButton(name);
+                        namesContainer.appendChild(button);
+                    });
+                }
+
+                // Display villages
+                const villagesContainer = document.getElementById('villageExamples');
+                if (samples.villages) {
+                    samples.villages.forEach(village => {
+                        const button = this.createDemoButton(village);
+                        villagesContainer.appendChild(button);
+                    });
+                }
+
+                // Add event listeners to complex examples
+                document.querySelectorAll('.demo-word').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const word = button.dataset.word;
+                        this.convertDemoWord(word);
+                    });
+                });
+            }
+
+            createDemoButton(word) {
+                const button = document.createElement('button');
+                button.className = 'demo-word bg-gradient-to-r from-gray-50 to-gray-100 border-2 border-gray-200 rounded-lg p-3 text-center hover:from-indigo-500 hover:to-purple-600 hover:text-white hover:border-indigo-500 transition-all duration-300 sinhala-text font-medium';
+                button.textContent = word;
+                button.addEventListener('click', () => this.convertDemoWord(word));
+                return button;
+            }
+
+            async convertDemoWord(word) {
+                try {
+                    const response = await fetch('/api/convert', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: word })
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        this.showDemoResult(data);
+                    } else {
+                        this.showDemoError(data.error);
+                    }
+                } catch (error) {
+                    this.showDemoError('Network error: ' + error.message);
+                }
+            }
+
+            showDemoResult(data) {
+                document.getElementById('demoWord').textContent = data.input_word;
+                
+                const content = document.getElementById('demoContent');
+                content.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-blue-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-blue-600">${data.input_word}</div>
+                            <div class="text-sm text-blue-600">Input Word</div>
+                        </div>
+                        <div class="bg-green-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-green-600">${data.signs?.length || 0}</div>
+                            <div class="text-sm text-green-600">Signs Generated</div>
+                        </div>
+                        <div class="bg-purple-50 rounded-lg p-4 text-center">
+                            <div class="text-2xl font-bold text-purple-600">${data.video_urls?.filter(v => v.url).length || 0}</div>
+                            <div class="text-sm text-purple-600">Videos Available</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3">Generated Signs:</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${data.signs?.map(sign => `<span class="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-lg sinhala-text font-medium">${sign}</span>`).join('') || ''}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold text-gray-700 mb-3">Video Sequence:</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            ${data.video_urls?.map(video => `
+                                <div class="border rounded-lg p-3 text-center ${video.url ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}">
+                                    <div class="sinhala-text font-semibold mb-1">${video.sign}</div>
+                                    <div class="text-xs ${video.url ? 'text-green-600' : 'text-red-600'}">
+                                        <i class="fas ${video.url ? 'fa-check-circle' : 'fa-times-circle'} mr-1"></i>
+                                        ${video.url ? 'Available' : 'Missing'}
+                                    </div>
+                                </div>
+                            `).join('') || ''}
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('demoModal').classList.remove('hidden');
+            }
+
+            showDemoError(error) {
+                const content = document.getElementById('demoContent');
+                content.innerHTML = `
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>
+                            <span class="text-red-700 font-semibold">Error</span>
+                        </div>
+                        <p class="text-red-600 mt-2">${error}</p>
+                    </div>
+                `;
+                
+                document.getElementById('demoModal').classList.remove('hidden');
+            }
+
+            closeDemoModal() {
+                document.getElementById('demoModal').classList.add('hidden');
+            }
+        }
+
+        // Initialize demo app
+        document.addEventListener('DOMContentLoaded', () => {
+            window.demoApp = new DemoApp();
+        });
+    </script>
+</body>
+</html>

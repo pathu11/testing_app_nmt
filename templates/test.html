@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>සිංහල ඇඟිලි අකුරු - Test</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .tab-button {
+            color: #6b7280;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .tab-button.active {
+            color: #4f46e5;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .sinhala-text {
+            font-family: 'Noto Sans Sinhala', 'Iskoola Pota', serif !important;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">සිංහල ඇඟිලි අකුරු</h1>
+            <p class="text-gray-600">Simple Working Test</p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+            
+            <!-- Tab Navigation -->
+            <div class="flex space-x-1 bg-gray-100 rounded-lg p-1 mb-8">
+                <button id="textTab" class="tab-button active flex-1 py-3 px-6 rounded-lg font-medium transition-all">
+                    <i class="fas fa-font mr-2"></i>
+                    Sinhala Text
+                </button>
+                <button id="numberTab" class="tab-button flex-1 py-3 px-6 rounded-lg font-medium transition-all">
+                    <i class="fas fa-calculator mr-2"></i>
+                    Numbers
+                </button>
+            </div>
+
+            <!-- Text Tab -->
+            <div id="textTabContent" class="tab-content active">
+                <h3 class="text-xl font-semibold mb-4">Enter Sinhala Text</h3>
+                <div class="flex gap-4 mb-6">
+                    <input 
+                        type="text" 
+                        id="wordInput" 
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg sinhala-text"
+                        placeholder="නම, ගම්මාන නම, ආදිය..."
+                    >
+                    <button 
+                        id="convertBtn" 
+                        class="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700"
+                    >
+                        Convert
+                    </button>
+                </div>
+                
+                <!-- Sample Words -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Quick Samples:</label>
+                    <div class="flex flex-wrap gap-2" id="sampleWords">
+                        <button class="sample-word bg-gray-100 px-3 py-2 rounded-lg hover:bg-indigo-100 sinhala-text" data-word="අමල">අමල</button>
+                        <button class="sample-word bg-gray-100 px-3 py-2 rounded-lg hover:bg-indigo-100 sinhala-text" data-word="කමල">කමල</button>
+                        <button class="sample-word bg-gray-100 px-3 py-2 rounded-lg hover:bg-indigo-100 sinhala-text" data-word="නමල">නමල</button>
+                        <button class="sample-word bg-gray-100 px-3 py-2 rounded-lg hover:bg-indigo-100 sinhala-text" data-word="පානදුර">පානදුර</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Number Tab -->
+            <div id="numberTabContent" class="tab-content">
+                <h3 class="text-xl font-semibold mb-4">Enter Numbers</h3>
+                <div class="flex gap-4 mb-6">
+                    <input 
+                        type="text" 
+                        id="numberInput" 
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg"
+                        placeholder="123, 456, 1000..."
+                    >
+                    <button 
+                        id="convertNumberBtn" 
+                        class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700"
+                    >
+                        Convert
+                    </button>
+                </div>
+                
+                <!-- Sample Numbers -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">Quick Samples:</label>
+                    <div class="flex flex-wrap gap-2" id="sampleNumbers">
+                        <button class="sample-number bg-gray-100 px-3 py-2 rounded-lg hover:bg-purple-100" data-number="1">1</button>
+                        <button class="sample-number bg-gray-100 px-3 py-2 rounded-lg hover:bg-purple-100" data-number="12">12</button>
+                        <button class="sample-number bg-gray-100 px-3 py-2 rounded-lg hover:bg-purple-100" data-number="123">123</button>
+                        <button class="sample-number bg-gray-100 px-3 py-2 rounded-lg hover:bg-purple-100" data-number="2024">2024</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="hidden mt-8 p-6 bg-gray-50 rounded-lg">
+                <h4 class="text-lg font-semibold mb-4">Results:</h4>
+                <div id="resultContent"></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Simple working JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, setting up events...');
+            
+            // Tab switching
+            document.getElementById('textTab').addEventListener('click', function() {
+                console.log('Text tab clicked');
+                switchTab('text');
+            });
+            
+            document.getElementById('numberTab').addEventListener('click', function() {
+                console.log('Number tab clicked');
+                switchTab('number');
+            });
+            
+            // Convert buttons
+            document.getElementById('convertBtn').addEventListener('click', function() {
+                console.log('Convert text button clicked');
+                convertText();
+            });
+            
+            document.getElementById('convertNumberBtn').addEventListener('click', function() {
+                console.log('Convert number button clicked');
+                convertNumber();
+            });
+            
+            // Sample word buttons
+            document.querySelectorAll('.sample-word').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const word = this.dataset.word;
+                    console.log('Sample word clicked:', word);
+                    document.getElementById('wordInput').value = word;
+                    convertText();
+                });
+            });
+            
+            // Sample number buttons
+            document.querySelectorAll('.sample-number').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const number = this.dataset.number;
+                    console.log('Sample number clicked:', number);
+                    document.getElementById('numberInput').value = number;
+                    convertNumber();
+                });
+            });
+            
+            console.log('✅ All events set up successfully!');
+            
+            function switchTab(tabName) {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to selected tab
+                if (tabName === 'text') {
+                    document.getElementById('textTab').classList.add('active');
+                    document.getElementById('textTabContent').classList.add('active');
+                } else {
+                    document.getElementById('numberTab').classList.add('active');
+                    document.getElementById('numberTabContent').classList.add('active');
+                }
+                
+                console.log('Switched to tab:', tabName);
+            }
+            
+            async function convertText() {
+                const input = document.getElementById('wordInput').value.trim();
+                if (!input) {
+                    alert('Please enter some text');
+                    return;
+                }
+                
+                try {
+                    console.log('Converting text:', input);
+                    const response = await fetch('/api/convert', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: input })
+                    });
+                    
+                    const data = await response.json();
+                    console.log('Text conversion result:', data);
+                    displayResult(data);
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error converting text: ' + error.message);
+                }
+            }
+            
+            async function convertNumber() {
+                const input = document.getElementById('numberInput').value.trim();
+                if (!input) {
+                    alert('Please enter a number');
+                    return;
+                }
+                
+                try {
+                    console.log('Converting number:', input);
+                    const response = await fetch('/api/convert-number', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ number: input })
+                    });
+                    
+                    const data = await response.json();
+                    console.log('Number conversion result:', data);
+                    displayResult(data);
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error converting number: ' + error.message);
+                }
+            }
+            
+            function displayResult(data) {
+                const resultsDiv = document.getElementById('results');
+                const contentDiv = document.getElementById('resultContent');
+                
+                if (data.success) {
+                    const input = data.input_word || data.input_number || 'Unknown';
+                    const signs = data.signs || [];
+                    
+                    contentDiv.innerHTML = `
+                        <div class="mb-4">
+                            <strong>Input:</strong> <span class="sinhala-text">${input}</span>
+                        </div>
+                        <div class="mb-4">
+                            <strong>Signs:</strong> ${signs.map(sign => `<span class="inline-block bg-indigo-100 text-indigo-800 px-2 py-1 rounded mr-2 sinhala-text">${sign}</span>`).join('')}
+                        </div>
+                        <div class="text-sm text-gray-600">
+                            Generated ${signs.length} signs successfully!
+                        </div>
+                    `;
+                    
+                    resultsDiv.classList.remove('hidden');
+                } else {
+                    alert('Conversion failed: ' + (data.error || 'Unknown error'));
+                }
+            }
+        });
+    </script>
+</body>
+</html>
