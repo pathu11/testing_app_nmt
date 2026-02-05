@@ -41,6 +41,73 @@ class VideoConcatenator:
         self.temp_dir = Path(temp_dir)
         self.temp_dir.mkdir(exist_ok=True)
         # No caching - videos are temporary only
+    
+    def _cleanup_old_temp_videos(self, keep_recent=1):
+        """
+        Clean up old temporary videos, keeping the most recent ones
+        
+        Args:
+            keep_recent (int): Number of most recent videos to keep
+        """
+        try:
+            # Get all temp video files
+            temp_files = list(self.temp_dir.glob("temp_*.mp4"))
+            
+            if len(temp_files) <= keep_recent:
+                return  # Nothing to clean
+                
+            # Sort by modification time (newest first)
+            temp_files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+            
+            # Keep the most recent ones, delete the rest
+            files_to_delete = temp_files[keep_recent:]
+            cleaned_count = 0
+            
+            for video_file in files_to_delete:
+                try:
+                    video_file.unlink()
+                    cleaned_count += 1
+                except Exception as e:
+                    print(f"Failed to delete {video_file}: {e}")
+            
+            if cleaned_count > 0:
+                print(f"Cleaned up {cleaned_count} old temporary videos")
+                
+        except Exception as e:
+            print(f"Cleanup error: {e}")
+    
+    def cleanup_temp_videos(self, max_age_hours=1):
+        """
+        Clean up temporary videos older than specified hours (legacy method)
+        
+        Args:
+            max_age_hours (int): Maximum age of videos to keep in hours
+        """
+        import time
+        
+        try:
+            current_time = time.time()
+            max_age_seconds = max_age_hours * 3600
+            
+            cleaned_count = 0
+            for video_file in self.temp_dir.glob("temp_*.mp4"):
+                if video_file.is_file():
+                    file_age = current_time - video_file.stat().st_mtime
+                    if file_age > max_age_seconds:
+                        video_file.unlink()
+                        cleaned_count += 1
+            
+            return {
+                'success': True,
+                'cleaned_count': cleaned_count,
+                'message': f'Cleaned up {cleaned_count} temporary videos older than {max_age_hours} hours'
+            }
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Cleanup failed: {str(e)}'
+            }
         
     def _load_cache(self):
         """Load cache metadata"""
@@ -177,7 +244,7 @@ class VideoConcatenator:
     
     def concatenate_videos(self, video_paths, word, signs):
         """
-        Concatenate videos into a single temporary file (no caching)
+        Concatenate videos into a single temporary file (cleanup old ones when new one is created)
         
         Args:
             video_paths (list): List of video file paths
@@ -210,7 +277,10 @@ class VideoConcatenator:
                 'missing_count': len(video_paths) - len(valid_video_paths)
             }
         
-        # Generate unique temporary filename (no caching)
+        # Clean up old temporary videos before creating new one (keep only the most recent)
+        self._cleanup_old_temp_videos(keep_recent=1)
+        
+        # Generate unique temporary filename
         import uuid
         temp_filename = f"temp_{uuid.uuid4().hex}.mp4"
         output_path = self.temp_dir / temp_filename

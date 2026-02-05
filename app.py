@@ -266,7 +266,7 @@ def validate_setup():
 
 @app.route('/concatenated-videos/<filename>')
 def serve_concatenated_video(filename):
-    """Serve concatenated video files"""
+    """Serve concatenated video files (keep until new one is generated)"""
     try:
         temp_dir = fingerspelling_app.video_concatenator.temp_dir
         return send_from_directory(temp_dir, filename)
@@ -470,11 +470,33 @@ def internal_error(error):
     }), 500
 
 
+@app.route('/api/cleanup-temp-videos', methods=['POST'])
+def cleanup_temp_videos():
+    """Clean up old temporary concatenated videos (keeps most recent)"""
+    try:
+        # Clean up videos older than 24 hours (fallback cleanup)
+        result = fingerspelling_app.video_concatenator.cleanup_temp_videos(max_age_hours=24)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': f'Cleanup failed: {str(e)}'
+        }), 500
+
+
 if __name__ == '__main__':
     # Create necessary directories
     os.makedirs('templates', exist_ok=True)
     os.makedirs('static/css', exist_ok=True)
     os.makedirs('static/js', exist_ok=True)
+    
+    # Clean up very old temporary videos on startup (keep recent ones)
+    try:
+        cleanup_result = fingerspelling_app.video_concatenator.cleanup_temp_videos(max_age_hours=24)
+        if cleanup_result['success']:
+            print(f"✅ Cleaned up {cleanup_result['cleaned_count']} very old temporary videos on startup")
+    except Exception as e:
+        print(f"Warning: Initial cleanup failed: {e}")
     
     # Validate setup on startup
     try:

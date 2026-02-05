@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Sinhala Fingerspelling</title>
+    <title>About - Sinhala Fingerspelling and Number Checking</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
@@ -16,8 +16,8 @@
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center space-x-4">
                     <a href="/" class="flex items-center space-x-2">
-                        <i class="fas fa-hands text-indigo-600 text-2xl"></i>
-                        <h1 class="text-xl font-bold text-gray-800">සිංහල ඇඟිලි අකුරු</h1>
+                        <img src="{{ url_for('static', filename='logo.svg') }}" alt="Sinhala Fingerspelling Logo" class="h-10 w-10">
+                        <h1 class="text-xl font-bold text-gray-800">Sinhala Fingerspelling</h1>
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
@@ -40,7 +40,7 @@
         <!-- Hero Section -->
         <div class="text-center mb-16">
             <h1 class="text-5xl font-bold text-gray-800 mb-6">
-                About Sinhala Fingerspelling
+                About Sinhala Fingerspelling and Number Checking
             </h1>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                 A modern web application designed to make learning and teaching Sinhala sign language 
