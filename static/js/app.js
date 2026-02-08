@@ -649,9 +649,9 @@ class FingerspellingApp {
             }
             
             // Try both possible result div IDs for compatibility between local and deployed versions
-            let resultsDiv = document.getElementById('results');
+            let resultsDiv = document.getElementById('resultsSection');
             if (!resultsDiv) {
-                resultsDiv = document.getElementById('resultsSection');
+                resultsDiv = document.getElementById('results');
             }
             if (!resultsDiv) {
                 throw new Error('Results container not found');
