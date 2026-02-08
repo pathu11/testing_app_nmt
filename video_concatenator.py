@@ -13,14 +13,22 @@ from datetime import datetime
 import subprocess
 import concurrent.futures
 
-# Try to import MoviePy with more detailed error handling
+# Try to import MoviePy with multiple methods for compatibility
 try:
     from moviepy.editor import VideoFileClip, concatenate_videoclips
     MOVIEPY_AVAILABLE = True
     MOVIEPY_ERROR = None
-except ImportError as e:
-    MOVIEPY_AVAILABLE = False
-    MOVIEPY_ERROR = str(e)
+except ImportError:
+    try:
+        from moviepy import VideoFileClip, concatenate_videoclips
+        MOVIEPY_AVAILABLE = True
+        MOVIEPY_ERROR = None
+    except ImportError as e:
+        MOVIEPY_AVAILABLE = False
+        MOVIEPY_ERROR = str(e)
+    except Exception as e:
+        MOVIEPY_AVAILABLE = False
+        MOVIEPY_ERROR = f"MoviePy import error: {str(e)}"
 except Exception as e:
     MOVIEPY_AVAILABLE = False
     MOVIEPY_ERROR = f"MoviePy import error: {str(e)}"
