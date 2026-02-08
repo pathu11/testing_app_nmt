@@ -38,9 +38,23 @@ class VideoConcatenator:
         Args:
             temp_dir (str): Directory to store temporary concatenated videos
         """
-        self.temp_dir = Path(temp_dir)
-        self.temp_dir.mkdir(exist_ok=True)
-        # No caching - videos are temporary only
+        # Use /tmp for serverless environments, otherwise use the specified temp_dir
+        import os
+        if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+            self.temp_dir = Path("/tmp") / "temp_videos"
+        else:
+            self.temp_dir = Path(temp_dir)
+        # Don't create directory here - create when needed
+        # self.temp_dir.mkdir(exist_ok=True)
+        
+        # Initialize cache (disabled for serverless)
+        self.cache_file = self.temp_dir / "cache.json"
+        self.cache_data = {}
+        self.max_cache_size = 0  # Disable caching for serverless
+    
+    def _ensure_temp_dir(self):
+        """Ensure the temporary directory exists"""
+        self.temp_dir.mkdir(parents=True, exist_ok=True)
     
     def _cleanup_old_temp_videos(self, keep_recent=1):
         """
@@ -111,7 +125,7 @@ class VideoConcatenator:
         
     def _load_cache(self):
         """Load cache metadata"""
-        if self.cache_file.exists():
+        if self.max_cache_size > 0 and self.cache_file.exists():
             try:
                 with open(self.cache_file, 'r') as f:
                     return json.load(f)
@@ -121,8 +135,9 @@ class VideoConcatenator:
     
     def _save_cache(self):
         """Save cache metadata"""
-        with open(self.cache_file, 'w') as f:
-            json.dump(self.cache_data, f, indent=2)
+        if self.max_cache_size > 0:
+            with open(self.cache_file, 'w') as f:
+                json.dump(self.cache_data, f, indent=2)
     
     def _fast_concatenate_with_ffmpeg(self, video_paths, output_path):
         """
@@ -279,6 +294,9 @@ class VideoConcatenator:
         
         # Clean up old temporary videos before creating new one (keep only the most recent)
         self._cleanup_old_temp_videos(keep_recent=1)
+        
+        # Ensure temp directory exists
+        self._ensure_temp_dir()
         
         # Generate unique temporary filename
         import uuid
