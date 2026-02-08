@@ -623,8 +623,6 @@ class FingerspellingApp {
             
             if (data.success && validVideos.length > 0) {
                 console.log('Displaying video playlist...');
-                // Ensure results section is visible before displaying playlist
-                this.showResults();
                 this.displayVideoPlaylist(validVideos, input);
             } else {
                 console.log('Playlist creation failed - showing error message');
@@ -655,9 +653,6 @@ class FingerspellingApp {
                 throw new Error('Results div not found');
             }
             
-            // Ensure results section is visible
-            resultsDiv.classList.remove('hidden');
-            
             const playlistHtml = `
                 <div class="playlist-container">
                     <h3>Video Playlist for: "${input}"</h3>
@@ -680,9 +675,6 @@ class FingerspellingApp {
             
             resultsDiv.innerHTML = playlistHtml;
             console.log('HTML set successfully');
-            
-            // Scroll to the results section
-            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
             
             this.setupPlaylistEvents(videos);
             console.log('Playlist events set up successfully');
