@@ -181,11 +181,14 @@ class FingerspellingApp {
     }
 
     async requestConcatenation(input, type) {
+        console.log('🎬 [CONCAT] Starting concatenation request');
+        console.log('🎬 [CONCAT] Input:', input, 'Type:', type);
         this.showLoading();
         this.hideError();
 
         try {
             const body = type === 'text' ? { text: input, type: 'text' } : { number: input, type: 'number' };
+            console.log('🎬 [CONCAT] Request body:', body);
             
             const response = await fetch('/api/concatenate-video', {
                 method: 'POST',
@@ -196,12 +199,18 @@ class FingerspellingApp {
             });
 
             const data = await response.json();
+            console.log('🎬 [CONCAT] Response data:', data);
+            console.log('🎬 [CONCAT] Success:', data.success);
+            console.log('🎬 [CONCAT] Has concatenated_video:', !!data.concatenated_video);
+            console.log('🎬 [CONCAT] Concatenated success:', data.concatenated_video?.success);
 
             if (data.success && data.concatenated_video && data.concatenated_video.success) {
+                console.log('🎬 [CONCAT] ✅ Concatenation successful, displaying video');
                 this.displayConcatenatedVideo(data.concatenated_video, input);
             } else {
                 // If concatenation fails, try to create a playlist for sequential playback
-                console.log('Concatenation failed, trying playlist approach...');
+                console.log('🎬 [CONCAT] ❌ Concatenation failed, trying playlist approach...');
+                console.log('🎬 [CONCAT] Reason:', data.error || 'No error message');
                 this.createVideoPlaylist(input, type);
             }
         } catch (error) {
@@ -212,9 +221,12 @@ class FingerspellingApp {
     }
 
     displayConcatenatedVideo(videoData, inputText) {
+        console.log('🎥 [DISPLAY] Displaying concatenated video');
+        console.log('🎥 [DISPLAY] Video data:', videoData);
         const section = document.getElementById('concatenatedVideoSection');
         const player = document.getElementById('concatenatedVideoPlayer');
         const info = document.getElementById('concatenationInfo');
+        console.log('🎥 [DISPLAY] Elements found:', {section: !!section, player: !!player, info: !!info});
         
         // Show the section
         section.classList.remove('hidden');
@@ -599,10 +611,11 @@ class FingerspellingApp {
     // Create a playlist for sequential video playback when concatenation is unavailable
     async createVideoPlaylist(input, type) {
         try {
+            console.log('🎵 [PLAYLIST API] Creating video playlist...');
             const body = type === 'text' ? { text: input, type: 'text' } : { number: input, type: 'number' };
             
-            console.log('Creating video playlist for:', input, 'type:', type);
-            console.log('Request body:', body);
+            console.log('🎵 [PLAYLIST API] Input:', input, 'Type:', type);
+            console.log('🎵 [PLAYLIST API] Request body:', body);
             
             const response = await fetch('/api/video-playlist', {
                 method: 'POST',
@@ -649,13 +662,18 @@ class FingerspellingApp {
             }
             
             // Try both possible result div IDs for compatibility between local and deployed versions
+            console.log('📺 [PLAYLIST] Looking for results container...');
             let resultsDiv = document.getElementById('resultsSection');
+            console.log('📺 [PLAYLIST] resultsSection found:', !!resultsDiv);
             if (!resultsDiv) {
                 resultsDiv = document.getElementById('results');
+                console.log('📺 [PLAYLIST] Fallback to results found:', !!resultsDiv);
             }
             if (!resultsDiv) {
+                console.error('📺 [PLAYLIST] ❌ No results container found!');
                 throw new Error('Results container not found');
             }
+            console.log('📺 [PLAYLIST] ✅ Using container:', resultsDiv.id);
             
             const playlistHtml = `
                 <div class="playlist-container">
@@ -677,11 +695,14 @@ class FingerspellingApp {
                 </div>
             `;
             
+            console.log('📺 [PLAYLIST] Setting innerHTML to container:', resultsDiv.id);
             resultsDiv.innerHTML = playlistHtml;
-            console.log('HTML set successfully');
+            console.log('📺 [PLAYLIST] ✅ HTML set successfully');
+            console.log('📺 [PLAYLIST] Container classes:', resultsDiv.className);
+            console.log('📺 [PLAYLIST] Container parent:', resultsDiv.parentElement?.id);
             
             this.setupPlaylistEvents(videos);
-            console.log('Playlist events set up successfully');
+            console.log('📺 [PLAYLIST] ✅ Playlist events set up successfully');
             
         } catch (error) {
             console.error('Error displaying video playlist:', error);
