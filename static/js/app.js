@@ -623,6 +623,8 @@ class FingerspellingApp {
             
             if (data.success && validVideos.length > 0) {
                 console.log('Displaying video playlist...');
+                // Ensure results section is visible before displaying playlist
+                this.showResults();
                 this.displayVideoPlaylist(validVideos, input);
             } else {
                 console.log('Playlist creation failed - showing error message');
@@ -648,10 +650,13 @@ class FingerspellingApp {
                 throw new Error('First video has no URL: ' + JSON.stringify(videos[0]));
             }
             
-            const resultsDiv = document.getElementById('results');
+            const resultsDiv = document.getElementById('resultsSection');
             if (!resultsDiv) {
-                throw new Error('Results div not found');
+                throw new Error('Results section not found');
             }
+            
+            // Ensure results section is visible
+            resultsDiv.classList.remove('hidden');
             
             const playlistHtml = `
                 <div class="playlist-container">
