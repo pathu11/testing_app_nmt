@@ -39,9 +39,8 @@ class VideoProcessor:
                 video_file = row['video_file']
                 sign = str(row['sign'])  # Convert to string to handle both letters and numbers
                 
-                # Map sign to video file (add .MOV extension if not present)
-                if not video_file.endswith('.MOV'):
-                    video_file += '.MOV'
+                # Map sign to video file (add compressed_ prefix and .mp4 extension)
+                video_file = 'compressed_' + video_file + '.mp4'
                 
                 self.sign_to_video[sign] = video_file
                 self.video_to_sign[video_file] = sign

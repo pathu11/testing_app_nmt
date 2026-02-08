@@ -14,7 +14,7 @@ class FingerspellingApp:
     Main application class that orchestrates the fingerspelling process
     """
     
-    def __init__(self, videos_path="letters", mapping_file="fingerspelling_mapper.csv"):
+    def __init__(self, videos_path="compressed_letters", mapping_file="fingerspelling_mapper.csv"):
         """
         Initialize the application
         

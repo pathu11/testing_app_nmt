@@ -16,7 +16,7 @@ app = Flask(__name__)
 fingerspelling_app = FingerspellingApp()
 
 # Configuration
-app.config['VIDEOS_FOLDER'] = 'letters'
+app.config['VIDEOS_FOLDER'] = 'compressed_letters'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
 
 
