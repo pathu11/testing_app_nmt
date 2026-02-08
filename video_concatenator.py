@@ -15,7 +15,7 @@ import concurrent.futures
 
 # Try to import MoviePy with more detailed error handling
 try:
-    from moviepy import VideoFileClip, concatenate_videoclips
+    from moviepy.editor import VideoFileClip, concatenate_videoclips
     MOVIEPY_AVAILABLE = True
     MOVIEPY_ERROR = None
 except ImportError as e:
