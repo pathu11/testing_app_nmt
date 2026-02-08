@@ -650,9 +650,9 @@ class FingerspellingApp {
                 throw new Error('First video has no URL: ' + JSON.stringify(videos[0]));
             }
             
-            const resultsDiv = document.getElementById('resultsSection');
+            const resultsDiv = document.getElementById('results');
             if (!resultsDiv) {
-                throw new Error('Results section not found');
+                throw new Error('Results div not found');
             }
             
             // Ensure results section is visible
