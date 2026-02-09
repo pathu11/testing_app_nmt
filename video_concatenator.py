@@ -342,7 +342,7 @@ class VideoConcatenator:
 
                     # Only resize if height differs significantly (>100px difference)
                     if hasattr(clip, 'h') and abs(clip.h - 480) > 100:
-                        clip = clip.resize(height=480)
+                        clip = clip.resized(height=480)
 
                     clips.append(clip)
                 except Exception as e:
