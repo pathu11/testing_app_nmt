@@ -1,4 +1,9 @@
 /letters
 /numbers
 /temp_videos
+/compressed_videos
 /__pycache__
+__pycache__
+*.pyc
+*.pyo
+*.xlsx
