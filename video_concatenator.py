@@ -157,7 +157,8 @@ class VideoConcatenator:
             concat_file = output_path.with_suffix('.txt')
             with open(concat_file, 'w') as f:
                 for video_path in video_paths:
-                    f.write(f"file '{video_path}'\n")
+                    abs_path = os.path.abspath(video_path)
+                    f.write(f"file '{abs_path}'\n")
 
             # Run FFmpeg concat
             cmd = [
