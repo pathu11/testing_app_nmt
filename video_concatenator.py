@@ -340,9 +340,7 @@ class VideoConcatenator:
                     # Load clip with audio disabled for faster processing (if no audio needed)
                     clip = VideoFileClip(video_path, audio=False)  # Skip audio for faster processing
 
-                    # Only resize if height differs significantly (>100px difference)
-                    if hasattr(clip, 'h') and abs(clip.h - 480) > 100:
-                        clip = clip.resized(height=480)
+                    # Note: Removed resize to avoid compatibility issues and memory usage
 
                     clips.append(clip)
                 except Exception as e:
